@@ -1,6 +1,6 @@
 # proto-toml-plugins
 
-[Proto](https://moonrepo.dev/proto) TOML plugins for common infra CLI tooling. Use a single `.prototools` to manage versions of 58+ tools including Kubernetes ecosystem, HashiCorp stack, security scanners, GitOps, cloud CLIs and DevEx utilities (tofu, terraform, terragrunt, flux, kind, k3d, kubectl, helm, kustomize, argocd, velero, k9s, kubectx, kubens, cosign, sops, age, trivy, gitleaks, vault, consul, packer, gh, yq, jq, crane, d2, mkcert, golangci-lint, air, sqlc, stern, tflint, terraform-docs, buf, atlas, direnv, lazygit, cloudflared, caddy, eksctl, aliyun, helmfile, operator-sdk, tkn, istioctl, oras, syft, grype, starship, zoxide, eza, fd, vp (Vite+), oxlint, oxfmt, and more).
+[Proto](https://moonrepo.dev/proto) TOML plugins for common infra CLI tooling. Use a single `.prototools` to manage versions of 61+ tools including Kubernetes ecosystem, HashiCorp stack, security scanners, GitOps, cloud CLIs and DevEx utilities (tofu, terraform, terragrunt, flux, kind, k3d, kubectl, helm, kustomize, argocd, velero, k9s, kubectx, kubens, cosign, sops, age, trivy, gitleaks, vault, consul, packer, gh, yq, jq, crane, d2, mkcert, golangci-lint, air, sqlc, stern, tflint, terraform-docs, buf, atlas, direnv, lazygit, cloudflared, caddy, eksctl, aliyun, helmfile, operator-sdk, tkn, istioctl, oras, syft, grype, starship, zoxide, eza, fd, vp (Vite+), oxlint, oxfmt, just, dra, dive, and more).
 
 ## Plugins
 
@@ -14,12 +14,15 @@
 | `cosign` | https://github.com/sigstore/cosign | Cosign container & artifact signing |
 | `crane` | https://github.com/google/go-containerregistry | crane / gcrane container registry CLI |
 | `d2` | https://github.com/terrastruct/d2 | Declarative diagram language (text to diagrams) |
+| `dive` | https://github.com/wagoodman/dive | Docker image layer analyzer |
+| `dra` | https://github.com/devmatteini/dra | GitHub release asset downloader (meta tool) |
 | `flux` | https://github.com/fluxcd/flux2 | Flux GitOps continuous delivery |
 | `gh` | https://github.com/cli/cli | GitHub CLI |
 | `gitleaks` | https://github.com/gitleaks/gitleaks | Git secret leak detection |
 | `golangci-lint` | https://github.com/golangci/golangci-lint | Go linters aggregator |
 | `helm` | https://github.com/helm/helm | Helm Kubernetes package manager |
 | `jq` | https://github.com/jqlang/jq | Command-line JSON processor |
+| `just` | https://github.com/casey/just | Modern command runner / make alternative |
 | `k3d` | https://github.com/k3d-io/k3d | Lightweight K3s in Docker |
 | `k9s` | https://github.com/derailed/k9s | Modern Kubernetes TUI |
 | `kind` | https://github.com/kubernetes-sigs/kind | Local Kubernetes clusters (Docker) |
@@ -103,6 +106,9 @@ gitleaks       = "https://raw.githubusercontent.com/StringKe/proto-toml-plugins/
 golangci-lint  = "https://raw.githubusercontent.com/StringKe/proto-toml-plugins/main/plugins/golangci-lint.toml"
 helm           = "https://raw.githubusercontent.com/StringKe/proto-toml-plugins/main/plugins/helm.toml"
 jq             = "https://raw.githubusercontent.com/StringKe/proto-toml-plugins/main/plugins/jq.toml"
+just           = "https://raw.githubusercontent.com/StringKe/proto-toml-plugins/main/plugins/just.toml"
+dra            = "https://raw.githubusercontent.com/StringKe/proto-toml-plugins/main/plugins/dra.toml"
+dive           = "https://raw.githubusercontent.com/StringKe/proto-toml-plugins/main/plugins/dive.toml"
 k3d            = "https://raw.githubusercontent.com/StringKe/proto-toml-plugins/main/plugins/k3d.toml"
 k9s            = "https://raw.githubusercontent.com/StringKe/proto-toml-plugins/main/plugins/k9s.toml"
 kind           = "https://raw.githubusercontent.com/StringKe/proto-toml-plugins/main/plugins/kind.toml"

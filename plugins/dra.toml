@@ -1,0 +1,33 @@
+# A TOML plugin for proto:
+# https://moonrepo.dev/docs/proto/plugins#toml-plugin
+#
+# dra - GitHub Release 资产下载器（自动匹配平台）。与 proto 理念高度互补的 meta 工具。
+
+name = "dra"
+type = "cli"
+
+[platform.linux]
+download-file = "dra-{version}-{arch}-unknown-linux-gnu.tar.gz"
+archive-prefix = "dra-{version}-{arch}-unknown-linux-gnu"
+exe-path = "dra"
+
+[platform.macos]
+download-file = "dra-{version}-{arch}-apple-darwin.tar.gz"
+archive-prefix = "dra-{version}-{arch}-apple-darwin"
+exe-path = "dra"
+
+[platform.windows]
+download-file = "dra-{version}-{arch}-pc-windows-msvc.zip"
+archive-prefix = "dra-{version}-{arch}-pc-windows-msvc"
+exe-path = "dra.exe"
+
+[install]
+download-url = "https://github.com/devmatteini/dra/releases/download/{version}/{download_file}"
+unpack = true
+
+[install.arch]
+aarch64 = "aarch64"
+x86_64 = "x86_64"
+
+[resolve]
+git-url = "https://github.com/devmatteini/dra"
