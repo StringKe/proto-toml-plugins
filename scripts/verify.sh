@@ -216,10 +216,14 @@ main() {
         # Print exactly what Windows filename this plugin TOML is requesting
         WIN_FILE=$(grep -A 5 'platform.windows' "$ROOT/plugins/$p.toml" | grep 'download-file' | head -1 | sed 's/.*= *"\(.*\)"/\1/')
         echo "[debug] $p on Windows will request filename: $WIN_FILE (after arch substitution)" >&2
-        if ! verify_one "$p" "$use_latest"; then
+        if verify_one "$p" "$use_latest"; then
+          echo "[debug] $p PASSED on Windows" >&2
+        else
+          echo "[debug] $p FAILED on Windows" >&2
           failures=$((failures + 1))
         fi
       done
+      echo "[debug] Windows batch summary: $failures failures out of ${#PLUGINS_TO_TEST[@]} tested" >&2
     else
       # Test all plugins that have a .toml
       while IFS= read -r toml; do
