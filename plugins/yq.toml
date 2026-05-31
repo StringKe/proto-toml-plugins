@@ -17,7 +17,6 @@ download-file = "yq_windows_{arch}.exe"
 
 [install]
 download-url = "https://github.com/mikefarah/yq/releases/download/v{version}/{download_file}"
-checksum-url = "https://github.com/mikefarah/yq/releases/download/v{version}/checksums"
 unpack = false
 
 [install.arch]

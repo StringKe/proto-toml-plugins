@@ -8,12 +8,15 @@ type = "cli"
 
 [platform.linux]
 download-file = "go-containerregistry_Linux_{arch}.tar.gz"
+exe-path = "crane"
 
 [platform.macos]
 download-file = "go-containerregistry_Darwin_{arch}.tar.gz"
+exe-path = "crane"
 
 [platform.windows]
 download-file = "go-containerregistry_Windows_{arch}.tar.gz"
+exe-path = "crane.exe"
 
 [install]
 download-url = "https://github.com/google/go-containerregistry/releases/download/v{version}/{download_file}"
@@ -21,7 +24,7 @@ unpack = true
 
 [install.arch]
 aarch64 = "arm64"
-x86_64 = "amd64"
+x86_64 = "x86_64"
 
 [resolve]
 git-url = "https://github.com/google/go-containerregistry"

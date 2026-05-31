@@ -13,15 +13,19 @@ download-file = "lazygit_{version}_Linux_{arch}.tar.gz"
 download-file = "lazygit_{version}_Darwin_{arch}.tar.gz"
 
 [platform.windows]
-download-file = "lazygit_{version}_Windows_{arch}.tar.gz"
+download-file = "lazygit_{version}_Windows_{arch}.zip"
 
 [install]
 download-url = "https://github.com/jesseduffield/lazygit/releases/download/v{version}/{download_file}"
 unpack = true
 
+[install.exes.lazygit]
+exe-path = "lazygit.exe"
+primary = true
+
 [install.arch]
 aarch64 = "arm64"
-x86_64 = "amd64"
+x86_64 = "x86_64"
 
 [resolve]
 git-url = "https://github.com/jesseduffield/lazygit"

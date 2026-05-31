@@ -3,25 +3,25 @@
 #
 # oxfmt - Oxc 项目的快速代码格式化工具（与 oxlint 配套）。
 #
-# 与 oxlint 共享同一发布流程（apps_v{version} tag + 大量预构建二进制）。
+# 注意：oxfmt 与 oxlint 共享同一 GitHub Release（tag 形如 apps_v1.67.0）。
+# Release 中 oxfmt 自身的版本号是独立的 (例如 oxfmt v0.52.0)，但 download URL
+# 必须用 apps tag。因此此处的 version 实际上是 apps_v 版本号 (与 oxlint 同步)。
+# 归档为单文件压缩包，内部直接是命名为 oxfmt-{triple} 的可执行文件，无目录前缀。
 
 name = "oxfmt"
 type = "cli"
 
 [platform.linux]
 download-file = "oxfmt-{arch}-unknown-linux-musl.tar.gz"
-archive-prefix = "oxfmt-{arch}-unknown-linux-musl"
-exe-path = "oxfmt"
+exe-path = "oxfmt-{arch}-unknown-linux-musl"
 
 [platform.macos]
 download-file = "oxfmt-{arch}-apple-darwin.tar.gz"
-archive-prefix = "oxfmt-{arch}-apple-darwin"
-exe-path = "oxfmt"
+exe-path = "oxfmt-{arch}-apple-darwin"
 
 [platform.windows]
 download-file = "oxfmt-{arch}-pc-windows-msvc.zip"
-archive-prefix = "oxfmt-{arch}-pc-windows-msvc"
-exe-path = "oxfmt.exe"
+exe-path = "oxfmt-{arch}-pc-windows-msvc.exe"
 
 [install]
 download-url = "https://github.com/oxc-project/oxc/releases/download/apps_v{version}/{download_file}"

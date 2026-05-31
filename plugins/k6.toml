@@ -7,13 +7,19 @@ name = "k6"
 type = "cli"
 
 [platform.linux]
+archive-prefix = "k6-v{version}-linux-{arch}"
 download-file = "k6-v{version}-linux-{arch}.tar.gz"
+exe-path = "k6"
 
 [platform.macos]
-download-file = "k6-v{version}-macos-{arch}.tar.gz"
+archive-prefix = "k6-v{version}-macos-{arch}"
+download-file = "k6-v{version}-macos-{arch}.zip"
+exe-path = "k6"
 
 [platform.windows]
+archive-prefix = "k6-v{version}-windows-{arch}"
 download-file = "k6-v{version}-windows-{arch}.zip"
+exe-path = "k6.exe"
 
 [install]
 download-url = "https://github.com/grafana/k6/releases/download/v{version}/{download_file}"

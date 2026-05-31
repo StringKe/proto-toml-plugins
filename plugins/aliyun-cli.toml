@@ -7,13 +7,16 @@ name = "aliyun"
 type = "cli"
 
 [platform.linux]
-download-file = "aliyun-cli-linux-{arch}-v{version}.tgz"
+download-file = "aliyun-cli-linux-{version}-{arch}.tgz"
+exe-path = "aliyun"
 
 [platform.macos]
-download-file = "aliyun-cli-macos-{arch}-v{version}.tgz"
+download-file = "aliyun-cli-macosx-{version}-{arch}.tgz"
+exe-path = "aliyun"
 
 [platform.windows]
-download-file = "aliyun-cli-windows-{arch}-v{version}.zip"
+download-file = "aliyun-cli-windows-{version}-{arch}.zip"
+exe-path = "aliyun.exe"
 
 [install]
 download-url = "https://github.com/aliyun/aliyun-cli/releases/download/v{version}/{download_file}"

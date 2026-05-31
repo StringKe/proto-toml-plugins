@@ -8,16 +8,18 @@ type = "cli"
 
 [platform.linux]
 download-file = "cloudflared-linux-{arch}"
+exe-path = "cloudflared-linux-{arch}"
 
 [platform.macos]
-download-file = "cloudflared-darwin-{arch}"
+download-file = "cloudflared-darwin-{arch}.tgz"
+exe-path = "cloudflared"
 
 [platform.windows]
 download-file = "cloudflared-windows-{arch}.exe"
+exe-path = "cloudflared-windows-{arch}.exe"
 
 [install]
 download-url = "https://github.com/cloudflare/cloudflared/releases/download/{version}/{download_file}"
-unpack = false
 
 [install.arch]
 aarch64 = "arm64"

@@ -1,25 +1,16 @@
-name: Verify plugins (push & PR)
+name: Verify plugins (daily --latest)
+
+# Catches upstream release-mechanism changes (renamed assets, new archive layouts,
+# checksum format changes) by installing the actual latest published version of
+# every plugin. Fast verify-plugins.yml only checks the pinned known-good versions.
 
 on:
-  push:
-    branches: [ main ]
-    paths:
-      - 'plugins/**'
-      - 'scripts/verify.sh'
-      - 'scripts/verify.ps1'
-      - 'tests/known-good.json'
-      - '.github/workflows/verify-plugins.yml'
-  pull_request:
-    paths:
-      - 'plugins/**'
-      - 'scripts/verify.sh'
-      - 'scripts/verify.ps1'
-      - 'tests/known-good.json'
-      - '.github/workflows/verify-plugins.yml'
+  schedule:
+    - cron: '15 4 * * *'   # daily 04:15 UTC
   workflow_dispatch:
 
 jobs:
-  verify:
+  verify-latest:
     strategy:
       fail-fast: false
       matrix:
@@ -41,23 +32,23 @@ jobs:
             choco install jq -y --no-progress
           fi
 
-      - name: Run verification (Unix)
+      - name: Run verification --latest (Unix)
         if: matrix.os != 'windows-latest'
         shell: bash
-        run: ./scripts/verify.sh
+        run: ./scripts/verify.sh --latest
 
-      - name: Run verification (Windows)
+      - name: Run verification --latest (Windows)
         if: matrix.os == 'windows-latest'
         shell: pwsh
-        run: ./scripts/verify.ps1
+        run: ./scripts/verify.ps1 -Latest
 
       - name: Upload logs on failure
         if: failure()
         uses: actions/upload-artifact@v4
         with:
-          name: verify-pinned-${{ matrix.os }}-${{ github.run_id }}
+          name: verify-latest-${{ matrix.os }}-${{ github.run_id }}
           path: |
             /tmp/proto-verify-run-*/**/*
             ${{ runner.temp }}/proto-verify-run-*/**/*
             ${{ runner.temp }}/**/proto-verify-run*/**/*
-          retention-days: 7
+          retention-days: 14

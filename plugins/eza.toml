@@ -2,22 +2,30 @@
 # https://moonrepo.dev/docs/proto/plugins#toml-plugin
 #
 # eza - 现代 ls 替代（用户 zsh 已激活，带 OSC8 超链接）。
+# 上游 eza-community/eza 仅发布 Linux/Windows 二进制，macOS 通过 cargo-prebuilt 镜像下载。
+# 为保持跨平台一致，所有平台统一从 cargo-prebuilt/index 拉取（同步对应版本）。
 
 name = "eza"
 type = "cli"
 
 [platform.linux]
-download-file = "eza_{arch}-unknown-linux-musl.tar.gz"
+download-file = "{arch}-unknown-linux-musl.tar.gz"
 
 [platform.macos]
-download-file = "eza_{arch}-apple-darwin.tar.gz"
+download-file = "{arch}-apple-darwin.tar.gz"
 
 [platform.windows]
-download-file = "eza_{arch}-pc-windows-msvc.zip"
+download-file = "{arch}-pc-windows-msvc.tar.gz"
+exes-dir = "."
 
 [install]
-download-url = "https://github.com/eza-community/eza/releases/download/v{version}/{download_file}"
+download-url = "https://github.com/cargo-prebuilt/index/releases/download/eza-{version}/{download_file}"
 unpack = true
+
+[install.exes.eza]
+exe-path = "eza"
+exe-link-path = "eza"
+primary = true
 
 [install.arch]
 aarch64 = "aarch64"

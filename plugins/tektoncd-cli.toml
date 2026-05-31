@@ -10,7 +10,7 @@ type = "cli"
 download-file = "tkn_{version}_Linux_{arch}.tar.gz"
 
 [platform.macos]
-download-file = "tkn_{version}_Darwin_{arch}.tar.gz"
+download-file = "tkn_{version}_Darwin_all.tar.gz"
 
 [platform.windows]
 download-file = "tkn_{version}_Windows_{arch}.zip"
@@ -19,9 +19,13 @@ download-file = "tkn_{version}_Windows_{arch}.zip"
 download-url = "https://github.com/tektoncd/cli/releases/download/v{version}/{download_file}"
 unpack = true
 
+[install.exes.tektoncd-cli]
+exe-path = "tkn"
+primary = true
+
 [install.arch]
-aarch64 = "arm64"
-x86_64 = "amd64"
+aarch64 = "aarch64"
+x86_64 = "x86_64"
 
 [resolve]
 git-url = "https://github.com/tektoncd/cli"

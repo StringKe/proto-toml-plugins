@@ -13,15 +13,19 @@ download-file = "gitleaks_{version}_linux_{arch}.tar.gz"
 download-file = "gitleaks_{version}_darwin_{arch}.tar.gz"
 
 [platform.windows]
-download-file = "gitleaks_{version}_windows_{arch}.tar.gz"
+download-file = "gitleaks_{version}_windows_{arch}.zip"
 
 [install]
 download-url = "https://github.com/gitleaks/gitleaks/releases/download/v{version}/{download_file}"
 unpack = true
 
+[install.exes.gitleaks]
+exe-path = "gitleaks.exe"
+primary = true
+
 [install.arch]
 aarch64 = "arm64"
-x86_64 = "amd64"
+x86_64 = "x64"
 
 [resolve]
 git-url = "https://github.com/gitleaks/gitleaks"

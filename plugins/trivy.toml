@@ -13,15 +13,19 @@ download-file = "trivy_{version}_Linux-{arch}.tar.gz"
 download-file = "trivy_{version}_macOS-{arch}.tar.gz"
 
 [platform.windows]
-download-file = "trivy_{version}_Windows-{arch}.tar.gz"
+download-file = "trivy_{version}_windows-64bit.zip"
 
 [install]
 download-url = "https://github.com/aquasecurity/trivy/releases/download/v{version}/{download_file}"
 unpack = true
 
+[install.exes.trivy]
+exe-path = "trivy.exe"
+primary = true
+
 [install.arch]
-aarch64 = "arm64"
-x86_64 = "amd64"
+aarch64 = "ARM64"
+x86_64 = "64bit"
 
 [resolve]
 git-url = "https://github.com/aquasecurity/trivy"

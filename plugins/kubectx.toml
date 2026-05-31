@@ -15,7 +15,7 @@ download-file = "kubectx_v{version}_darwin_{arch}.tar.gz"
 checksum-file = "checksums.txt"
 
 [platform.windows]
-download-file = "kubectx_v{version}_windows_{arch}.tar.gz"
+download-file = "kubectx_v{version}_windows_{arch}.zip"
 checksum-file = "checksums.txt"
 
 [install]
@@ -23,9 +23,13 @@ download-url = "https://github.com/ahmetb/kubectx/releases/download/v{version}/{
 checksum-url = "https://github.com/ahmetb/kubectx/releases/download/v{version}/{checksum_file}"
 unpack = true
 
+[install.exes.kubectx]
+exe-path = "kubectx"
+primary = true
+
 [install.arch]
 aarch64 = "arm64"
-x86_64 = "amd64"
+x86_64 = "x86_64"
 
 [resolve]
 git-url = "https://github.com/ahmetb/kubectx"

@@ -7,13 +7,13 @@ name = "kubeconform"
 type = "cli"
 
 [platform.linux]
-download-file = "kubeconform-{os}-{arch}.tar.gz"
+download-file = "kubeconform-linux-{arch}.tar.gz"
 
 [platform.macos]
-download-file = "kubeconform-{os}-{arch}.tar.gz"
+download-file = "kubeconform-darwin-{arch}.tar.gz"
 
 [platform.windows]
-download-file = "kubeconform-{os}-{arch}.tar.gz"
+download-file = "kubeconform-windows-{arch}.zip"
 
 [install]
 download-url = "https://github.com/yannh/kubeconform/releases/download/v{version}/{download_file}"
