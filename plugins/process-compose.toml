@@ -1,0 +1,29 @@
+# A TOML plugin for proto:
+# https://moonrepo.dev/docs/proto/plugins#toml-plugin
+#
+# process-compose - 现代化的进程编排工具（类似 docker-compose 但用于本地进程管理）。
+# 由 Go 编写，发布物为干净的原生二进制。
+
+name = "process-compose"
+type = "cli"
+
+[platform.linux]
+download-file = "process-compose_linux_{arch}.tar.gz"
+
+[platform.macos]
+download-file = "process-compose_darwin_{arch}.tar.gz"
+
+[platform.windows]
+download-file = "process-compose_windows_{arch}.zip"
+
+[install]
+download-url = "https://github.com/F1bonacc1/process-compose/releases/download/v{version}/{download_file}"
+checksum-url = "https://github.com/F1bonacc1/process-compose/releases/download/v{version}/process-compose_checksums.txt"
+unpack = true
+
+[install.arch]
+aarch64 = "arm64"
+x86_64 = "amd64"
+
+[resolve]
+git-url = "https://github.com/F1bonacc1/process-compose"

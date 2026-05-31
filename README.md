@@ -1,6 +1,6 @@
 # proto-toml-plugins
 
-[Proto](https://moonrepo.dev/proto) TOML plugins for common infra CLI tooling. Use a single `.prototools` to manage versions of 61+ tools including Kubernetes ecosystem, HashiCorp stack, security scanners, GitOps, cloud CLIs and DevEx utilities (tofu, terraform, terragrunt, flux, kind, k3d, kubectl, helm, kustomize, argocd, velero, k9s, kubectx, kubens, cosign, sops, age, trivy, gitleaks, vault, consul, packer, gh, yq, jq, crane, d2, mkcert, golangci-lint, air, sqlc, stern, tflint, terraform-docs, buf, atlas, direnv, lazygit, cloudflared, caddy, eksctl, aliyun, helmfile, operator-sdk, tkn, istioctl, oras, syft, grype, starship, zoxide, eza, fd, vp (Vite+), oxlint, oxfmt, just, dra, dive, and more).
+[Proto](https://moonrepo.dev/proto) TOML plugins for common infra CLI tooling. Use a single `.prototools` to manage versions of 62+ tools including Kubernetes ecosystem, HashiCorp stack, security scanners, GitOps, cloud CLIs and DevEx utilities (tofu, terraform, terragrunt, flux, kind, k3d, kubectl, helm, kustomize, argocd, velero, k9s, kubectx, kubens, cosign, sops, age, trivy, gitleaks, vault, consul, packer, gh, yq, jq, crane, d2, mkcert, golangci-lint, air, sqlc, stern, tflint, terraform-docs, buf, atlas, direnv, lazygit, cloudflared, caddy, eksctl, aliyun, helmfile, operator-sdk, tkn, istioctl, oras, syft, grype, starship, zoxide, eza, fd, vp (Vite+), oxlint, oxfmt, just, dra, dive, process-compose, and more).
 
 ## Plugins
 
@@ -33,6 +33,7 @@
 | `kustomize` | https://github.com/kubernetes-sigs/kustomize | Kustomize K8s manifest overlay |
 | `mkcert` | https://github.com/FiloSottile/mkcert | Local HTTPS dev certificates (same author as age) |
 | `packer` | https://github.com/hashicorp/packer | HashiCorp image builder |
+| `process-compose` | https://github.com/F1bonacc1/process-compose | Process orchestrator (like docker-compose for local processes) |
 | `sops` | https://github.com/getsops/sops | SOPS encrypted secret editor |
 | `sqlc` | https://github.com/sqlc-dev/sqlc | SQL to type-safe code generator |
 | `stern` | https://github.com/stern/stern | Kubernetes multi-pod log tail |
@@ -77,6 +78,7 @@ oxlint = "1.67.0"
 oxfmt = "0.52.0"
 consul = "1.21.0"
 packer = "1.13.1"
+process-compose = "1.110.0"
 gh = "2.81.0"
 yq = "4.47.2"
 jq = "1.8.1"
@@ -119,6 +121,7 @@ kubens         = "https://raw.githubusercontent.com/StringKe/proto-toml-plugins/
 kustomize      = "https://raw.githubusercontent.com/StringKe/proto-toml-plugins/main/plugins/kustomize.toml"
 mkcert         = "https://raw.githubusercontent.com/StringKe/proto-toml-plugins/main/plugins/mkcert.toml"
 packer         = "https://raw.githubusercontent.com/StringKe/proto-toml-plugins/main/plugins/packer.toml"
+process-compose = "https://raw.githubusercontent.com/StringKe/proto-toml-plugins/main/plugins/process-compose.toml"
 sops           = "https://raw.githubusercontent.com/StringKe/proto-toml-plugins/main/plugins/sops.toml"
 sqlc           = "https://raw.githubusercontent.com/StringKe/proto-toml-plugins/main/plugins/sqlc.toml"
 stern          = "https://raw.githubusercontent.com/StringKe/proto-toml-plugins/main/plugins/stern.toml"
