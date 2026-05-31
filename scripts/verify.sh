@@ -199,6 +199,7 @@ main() {
     # On Windows in CI, temporarily only test the recently added plugins for faster diagnosis
     if [[ "${CI:-}" == "true" && "${RUNNER_OS:-}" == "Windows" ]]; then
       echo "[debug] Windows CI detected - testing only the new batch plugins for faster iteration" >&2
+      set -x
       PLUGINS_TO_TEST=(ubi eget regctl lazydocker kail popeye)
       for p in "${PLUGINS_TO_TEST[@]}"; do
         total=$((total + 1))
@@ -206,6 +207,7 @@ main() {
           failures=$((failures + 1))
         fi
       done
+      set +x
     else
       # Test all plugins that have a .toml
       while IFS= read -r toml; do
