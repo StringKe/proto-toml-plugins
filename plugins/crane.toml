@@ -1,0 +1,27 @@
+# A TOML plugin for proto:
+# https://moonrepo.dev/docs/proto/plugins#toml-plugin
+#
+# crane - Google go-containerregistry CLI (容器镜像操作: pull/push/tag/validate 等)。release 内含 crane/gcrane/krane 三个 binary。
+
+name = "crane"
+type = "cli"
+
+[platform.linux]
+download-file = "go-containerregistry_Linux_{arch}.tar.gz"
+
+[platform.macos]
+download-file = "go-containerregistry_Darwin_{arch}.tar.gz"
+
+[platform.windows]
+download-file = "go-containerregistry_Windows_{arch}.tar.gz"
+
+[install]
+download-url = "https://github.com/google/go-containerregistry/releases/download/v{version}/{download_file}"
+unpack = true
+
+[install.arch]
+aarch64 = "arm64"
+x86_64 = "amd64"
+
+[resolve]
+git-url = "https://github.com/google/go-containerregistry"

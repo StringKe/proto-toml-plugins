@@ -1,0 +1,27 @@
+# A TOML plugin for proto:
+# https://moonrepo.dev/docs/proto/plugins#toml-plugin
+#
+# aliyun-cli - 阿里云命令行工具（用户已装）。
+
+name = "aliyun"
+type = "cli"
+
+[platform.linux]
+download-file = "aliyun-cli-linux-{arch}-v{version}.tgz"
+
+[platform.macos]
+download-file = "aliyun-cli-macos-{arch}-v{version}.tgz"
+
+[platform.windows]
+download-file = "aliyun-cli-windows-{arch}-v{version}.zip"
+
+[install]
+download-url = "https://github.com/aliyun/aliyun-cli/releases/download/v{version}/{download_file}"
+unpack = true
+
+[install.arch]
+aarch64 = "arm64"
+x86_64 = "amd64"
+
+[resolve]
+git-url = "https://github.com/aliyun/aliyun-cli"

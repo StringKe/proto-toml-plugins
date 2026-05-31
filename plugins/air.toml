@@ -1,0 +1,27 @@
+# A TOML plugin for proto:
+# https://moonrepo.dev/docs/proto/plugins#toml-plugin
+#
+# air - Go 应用热重载开发工具。
+
+name = "air"
+type = "cli"
+
+[platform.linux]
+download-file = "air_{version}_linux_{arch}"
+
+[platform.macos]
+download-file = "air_{version}_darwin_{arch}"
+
+[platform.windows]
+download-file = "air_{version}_windows_{arch}.exe"
+
+[install]
+download-url = "https://github.com/air-verse/air/releases/download/v{version}/{download_file}"
+unpack = false
+
+[install.arch]
+aarch64 = "arm64"
+x86_64 = "amd64"
+
+[resolve]
+git-url = "https://github.com/air-verse/air"

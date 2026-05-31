@@ -1,0 +1,28 @@
+# A TOML plugin for proto:
+# https://moonrepo.dev/docs/proto/plugins#toml-plugin
+#
+# yq - 类似 jq 的 YAML/JSON/XML/CSV 处理器。使用单 binary 直接下载 (推荐方式)。
+
+name = "yq"
+type = "cli"
+
+[platform.linux]
+download-file = "yq_linux_{arch}"
+
+[platform.macos]
+download-file = "yq_darwin_{arch}"
+
+[platform.windows]
+download-file = "yq_windows_{arch}.exe"
+
+[install]
+download-url = "https://github.com/mikefarah/yq/releases/download/v{version}/{download_file}"
+checksum-url = "https://github.com/mikefarah/yq/releases/download/v{version}/checksums"
+unpack = false
+
+[install.arch]
+aarch64 = "arm64"
+x86_64 = "amd64"
+
+[resolve]
+git-url = "https://github.com/mikefarah/yq"

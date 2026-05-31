@@ -1,0 +1,52 @@
+name: Verify Proto TOML Plugins
+
+on:
+  schedule:
+    # Daily at 04:15 UTC — tests latest versions of all plugins
+    - cron: '15 4 * * *'
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'plugins/**'
+      - 'scripts/verify.sh'
+      - 'tests/known-good.json'
+      - '.github/workflows/verify-plugins.yml'
+
+jobs:
+  verify:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-14]   # linux-amd64 + macos-arm64 (matches most user machines)
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install jq (for known-good.json)
+        run: |
+          if [[ "${{ runner.os }}" == "Linux" ]]; then
+            sudo apt-get update -y && sudo apt-get install -y jq
+          else
+            brew install jq
+          fi
+
+      - name: Run verification (known-good on PR, latest on schedule/manual)
+        env:
+          USE_LATEST: ${{ github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' }}
+        run: |
+          if [[ "$USE_LATEST" == "true" ]]; then
+            echo "Running daily latest-version verification on ${{ matrix.os }}"
+            ./scripts/verify.sh --latest
+          else
+            echo "Running PR verification against known-good versions on ${{ matrix.os }}"
+            ./scripts/verify.sh
+          fi
+
+      - name: Upload verification log on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: verify-log-${{ matrix.os }}-${{ github.run_id }}
+          path: /tmp/proto-verify-run-*/**/*
+          retention-days: 7

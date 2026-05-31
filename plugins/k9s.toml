@@ -1,0 +1,27 @@
+# A TOML plugin for proto:
+# https://moonrepo.dev/docs/proto/plugins#toml-plugin
+#
+# k9s - 现代化的 Kubernetes TUI 管理工具。
+
+name = "k9s"
+type = "cli"
+
+[platform.linux]
+download-file = "k9s_Linux_{arch}.tar.gz"
+
+[platform.macos]
+download-file = "k9s_Darwin_{arch}.tar.gz"
+
+[platform.windows]
+download-file = "k9s_Windows_{arch}.tar.gz"
+
+[install]
+download-url = "https://github.com/derailed/k9s/releases/download/v{version}/{download_file}"
+unpack = true
+
+[install.arch]
+aarch64 = "arm64"
+x86_64 = "amd64"
+
+[resolve]
+git-url = "https://github.com/derailed/k9s"

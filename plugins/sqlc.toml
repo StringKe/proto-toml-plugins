@@ -1,0 +1,27 @@
+# A TOML plugin for proto:
+# https://moonrepo.dev/docs/proto/plugins#toml-plugin
+#
+# sqlc - SQL 编译器，从 SQL 生成类型安全代码 (用户 mise 中已管理)。
+
+name = "sqlc"
+type = "cli"
+
+[platform.linux]
+download-file = "sqlc_{version}_linux_{arch}.tar.gz"
+
+[platform.macos]
+download-file = "sqlc_{version}_darwin_{arch}.tar.gz"
+
+[platform.windows]
+download-file = "sqlc_{version}_windows_{arch}.tar.gz"
+
+[install]
+download-url = "https://github.com/sqlc-dev/sqlc/releases/download/v{version}/{download_file}"
+unpack = true
+
+[install.arch]
+aarch64 = "arm64"
+x86_64 = "amd64"
+
+[resolve]
+git-url = "https://github.com/sqlc-dev/sqlc"

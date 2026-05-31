@@ -1,0 +1,27 @@
+# A TOML plugin for proto:
+# https://moonrepo.dev/docs/proto/plugins#toml-plugin
+#
+# terraform-docs - 从 Terraform 模块自动生成文档。
+
+name = "terraform-docs"
+type = "cli"
+
+[platform.linux]
+download-file = "terraform-docs-v{version}-linux-{arch}.tar.gz"
+
+[platform.macos]
+download-file = "terraform-docs-v{version}-darwin-{arch}.tar.gz"
+
+[platform.windows]
+download-file = "terraform-docs-v{version}-windows-{arch}.tar.gz"
+
+[install]
+download-url = "https://github.com/terraform-docs/terraform-docs/releases/download/v{version}/{download_file}"
+unpack = true
+
+[install.arch]
+aarch64 = "arm64"
+x86_64 = "amd64"
+
+[resolve]
+git-url = "https://github.com/terraform-docs/terraform-docs"

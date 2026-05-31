@@ -1,0 +1,31 @@
+# A TOML plugin for proto:
+# https://moonrepo.dev/docs/proto/plugins#toml-plugin
+#
+# Flux GitOps 工具，单 binary 在 tar 根目录。
+
+name = "flux"
+type = "cli"
+
+[platform.linux]
+download-file = "flux_{version}_linux_{arch}.tar.gz"
+checksum-file = "flux_{version}_checksums.txt"
+
+[platform.macos]
+download-file = "flux_{version}_darwin_{arch}.tar.gz"
+checksum-file = "flux_{version}_checksums.txt"
+
+[platform.windows]
+download-file = "flux_{version}_windows_{arch}.zip"
+checksum-file = "flux_{version}_checksums.txt"
+
+[install]
+checksum-url = "https://github.com/fluxcd/flux2/releases/download/v{version}/{checksum_file}"
+download-url = "https://github.com/fluxcd/flux2/releases/download/v{version}/{download_file}"
+unpack = true
+
+[install.arch]
+aarch64 = "arm64"
+x86_64 = "amd64"
+
+[resolve]
+git-url = "https://github.com/fluxcd/flux2"

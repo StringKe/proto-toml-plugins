@@ -1,0 +1,27 @@
+# A TOML plugin for proto:
+# https://moonrepo.dev/docs/proto/plugins#toml-plugin
+#
+# direnv - 目录级环境变量加载器（用户 zshrc 里已激活）。
+
+name = "direnv"
+type = "cli"
+
+[platform.linux]
+download-file = "direnv.linux-{arch}"
+
+[platform.macos]
+download-file = "direnv.darwin-{arch}"
+
+[platform.windows]
+download-file = "direnv.windows-{arch}.exe"
+
+[install]
+download-url = "https://github.com/direnv/direnv/releases/download/v{version}/{download_file}"
+unpack = false
+
+[install.arch]
+aarch64 = "arm64"
+x86_64 = "amd64"
+
+[resolve]
+git-url = "https://github.com/direnv/direnv"

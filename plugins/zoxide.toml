@@ -1,0 +1,27 @@
+# A TOML plugin for proto:
+# https://moonrepo.dev/docs/proto/plugins#toml-plugin
+#
+# zoxide - 智能 cd 替代（用户 zsh 已激活，alias cd）。
+
+name = "zoxide"
+type = "cli"
+
+[platform.linux]
+download-file = "zoxide-{version}-{arch}-unknown-linux-musl.tar.gz"
+
+[platform.macos]
+download-file = "zoxide-{version}-{arch}-apple-darwin.tar.gz"
+
+[platform.windows]
+download-file = "zoxide-{version}-{arch}-pc-windows-msvc.zip"
+
+[install]
+download-url = "https://github.com/ajeetdsouza/zoxide/releases/download/v{version}/{download_file}"
+unpack = true
+
+[install.arch]
+aarch64 = "aarch64"
+x86_64 = "x86_64"
+
+[resolve]
+git-url = "https://github.com/ajeetdsouza/zoxide"

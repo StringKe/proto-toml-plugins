@@ -1,0 +1,30 @@
+# A TOML plugin for proto:
+# https://moonrepo.dev/docs/proto/plugins#toml-plugin
+#
+# golangci-lint - Go 语言 linter 聚合工具 (用户机器已通过 brew 安装)。
+
+name = "golangci-lint"
+type = "cli"
+
+[platform.linux]
+download-file = "golangci-lint-{version}-linux-{arch}.tar.gz"
+archive-prefix = "golangci-lint-{version}-linux-{arch}"
+
+[platform.macos]
+download-file = "golangci-lint-{version}-darwin-{arch}.tar.gz"
+archive-prefix = "golangci-lint-{version}-darwin-{arch}"
+
+[platform.windows]
+download-file = "golangci-lint-{version}-windows-{arch}.zip"
+archive-prefix = "golangci-lint-{version}-windows-{arch}"
+
+[install]
+download-url = "https://github.com/golangci/golangci-lint/releases/download/v{version}/{download_file}"
+unpack = true
+
+[install.arch]
+aarch64 = "arm64"
+x86_64 = "amd64"
+
+[resolve]
+git-url = "https://github.com/golangci/golangci-lint"

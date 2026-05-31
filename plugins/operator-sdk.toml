@@ -1,0 +1,27 @@
+# A TOML plugin for proto:
+# https://moonrepo.dev/docs/proto/plugins#toml-plugin
+#
+# operator-sdk - Kubernetes Operator 开发 SDK（用户已装）。
+
+name = "operator-sdk"
+type = "cli"
+
+[platform.linux]
+download-file = "operator-sdk_{os}_{arch}"
+
+[platform.macos]
+download-file = "operator-sdk_{os}_{arch}"
+
+[platform.windows]
+download-file = "operator-sdk_{os}_{arch}.exe"
+
+[install]
+download-url = "https://github.com/operator-framework/operator-sdk/releases/download/v{version}/{download_file}"
+unpack = false
+
+[install.arch]
+aarch64 = "arm64"
+x86_64 = "amd64"
+
+[resolve]
+git-url = "https://github.com/operator-framework/operator-sdk"

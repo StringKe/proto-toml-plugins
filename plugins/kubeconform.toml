@@ -1,0 +1,27 @@
+# A TOML plugin for proto:
+# https://moonrepo.dev/docs/proto/plugins#toml-plugin
+#
+# kubeconform - Kubernetes manifest 快速验证工具 (比 kubectl --dry-run 更快)。
+
+name = "kubeconform"
+type = "cli"
+
+[platform.linux]
+download-file = "kubeconform-{os}-{arch}.tar.gz"
+
+[platform.macos]
+download-file = "kubeconform-{os}-{arch}.tar.gz"
+
+[platform.windows]
+download-file = "kubeconform-{os}-{arch}.tar.gz"
+
+[install]
+download-url = "https://github.com/yannh/kubeconform/releases/download/v{version}/{download_file}"
+unpack = true
+
+[install.arch]
+aarch64 = "arm64"
+x86_64 = "amd64"
+
+[resolve]
+git-url = "https://github.com/yannh/kubeconform"

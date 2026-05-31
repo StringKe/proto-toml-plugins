@@ -1,0 +1,27 @@
+# A TOML plugin for proto:
+# https://moonrepo.dev/docs/proto/plugins#toml-plugin
+#
+# fd - 现代 find 替代（用户 zsh 已激活，带 OSC8 超链接）。
+
+name = "fd"
+type = "cli"
+
+[platform.linux]
+download-file = "fd-v{version}-{arch}-unknown-linux-musl.tar.gz"
+
+[platform.macos]
+download-file = "fd-v{version}-{arch}-apple-darwin.tar.gz"
+
+[platform.windows]
+download-file = "fd-v{version}-{arch}-pc-windows-msvc.zip"
+
+[install]
+download-url = "https://github.com/sharkdp/fd/releases/download/v{version}/{download_file}"
+unpack = true
+
+[install.arch]
+aarch64 = "aarch64"
+x86_64 = "x86_64"
+
+[resolve]
+git-url = "https://github.com/sharkdp/fd"

@@ -1,0 +1,27 @@
+# A TOML plugin for proto:
+# https://moonrepo.dev/docs/proto/plugins#toml-plugin
+#
+# grype - 容器/文件系统漏洞扫描器 (Anchore，与 syft 配套)。
+
+name = "grype"
+type = "cli"
+
+[platform.linux]
+download-file = "grype_{version}_linux_{arch}.tar.gz"
+
+[platform.macos]
+download-file = "grype_{version}_darwin_{arch}.tar.gz"
+
+[platform.windows]
+download-file = "grype_{version}_windows_{arch}.zip"
+
+[install]
+download-url = "https://github.com/anchore/grype/releases/download/v{version}/{download_file}"
+unpack = true
+
+[install.arch]
+aarch64 = "arm64"
+x86_64 = "amd64"
+
+[resolve]
+git-url = "https://github.com/anchore/grype"

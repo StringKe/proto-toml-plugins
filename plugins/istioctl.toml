@@ -1,0 +1,30 @@
+# A TOML plugin for proto:
+# https://moonrepo.dev/docs/proto/plugins#toml-plugin
+#
+# istioctl - Istio 服务网格控制 CLI。
+
+name = "istioctl"
+type = "cli"
+
+[platform.linux]
+download-file = "istio-{version}-linux-{arch}.tar.gz"
+archive-prefix = "istio-{version}"
+
+[platform.macos]
+download-file = "istio-{version}-osx-{arch}.tar.gz"
+archive-prefix = "istio-{version}"
+
+[platform.windows]
+download-file = "istio-{version}-win-{arch}.zip"
+archive-prefix = "istio-{version}"
+
+[install]
+download-url = "https://github.com/istio/istio/releases/download/{version}/{download_file}"
+unpack = true
+
+[install.arch]
+aarch64 = "arm64"
+x86_64 = "amd64"
+
+[resolve]
+git-url = "https://github.com/istio/istio"

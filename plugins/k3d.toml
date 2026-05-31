@@ -1,0 +1,28 @@
+# A TOML plugin for proto:
+# https://moonrepo.dev/docs/proto/plugins#toml-plugin
+#
+# k3d - 在 Docker 中运行轻量 K3s 集群。单 binary 直接下载 (无 archive)。
+
+name = "k3d"
+type = "cli"
+
+[platform.linux]
+download-file = "k3d-linux-{arch}"
+
+[platform.macos]
+download-file = "k3d-darwin-{arch}"
+
+[platform.windows]
+download-file = "k3d-windows-{arch}.exe"
+
+[install]
+download-url = "https://github.com/k3d-io/k3d/releases/download/v{version}/{download_file}"
+checksum-url = "https://github.com/k3d-io/k3d/releases/download/v{version}/checksums.txt"
+unpack = false
+
+[install.arch]
+aarch64 = "arm64"
+x86_64 = "amd64"
+
+[resolve]
+git-url = "https://github.com/k3d-io/k3d"

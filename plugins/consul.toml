@@ -1,0 +1,28 @@
+# A TOML plugin for proto:
+# https://moonrepo.dev/docs/proto/plugins#toml-plugin
+#
+# Consul (HashiCorp) - 服务网格、KV 存储和多 DC 协调工具 (cask 安装也常见)。
+
+name = "consul"
+type = "cli"
+
+[platform.linux]
+download-file = "consul_{version}_linux_{arch}.zip"
+
+[platform.macos]
+download-file = "consul_{version}_darwin_{arch}.zip"
+
+[platform.windows]
+download-file = "consul_{version}_windows_{arch}.zip"
+
+[install]
+download-url = "https://releases.hashicorp.com/consul/{version}/{download_file}"
+checksum-url = "https://releases.hashicorp.com/consul/{version}/consul_{version}_SHA256SUMS"
+unpack = true
+
+[install.arch]
+aarch64 = "arm64"
+x86_64 = "amd64"
+
+[resolve]
+git-url = "https://github.com/hashicorp/consul"

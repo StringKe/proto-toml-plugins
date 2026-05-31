@@ -1,0 +1,27 @@
+# A TOML plugin for proto:
+# https://moonrepo.dev/docs/proto/plugins#toml-plugin
+#
+# k6 - 现代负载测试工具（用户已装）。
+
+name = "k6"
+type = "cli"
+
+[platform.linux]
+download-file = "k6-v{version}-linux-{arch}.tar.gz"
+
+[platform.macos]
+download-file = "k6-v{version}-macos-{arch}.tar.gz"
+
+[platform.windows]
+download-file = "k6-v{version}-windows-{arch}.zip"
+
+[install]
+download-url = "https://github.com/grafana/k6/releases/download/v{version}/{download_file}"
+unpack = true
+
+[install.arch]
+aarch64 = "arm64"
+x86_64 = "amd64"
+
+[resolve]
+git-url = "https://github.com/grafana/k6"

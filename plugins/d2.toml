@@ -1,0 +1,33 @@
+# A TOML plugin for proto:
+# https://moonrepo.dev/docs/proto/plugins#toml-plugin
+#
+# d2 - 现代声明式图表语言 (Text to Diagram)。
+
+name = "d2"
+type = "cli"
+
+[platform.linux]
+archive-prefix = "d2-v{version}"
+download-file = "d2-v{version}-linux-{arch}.tar.gz"
+exe-path = "bin/d2"
+
+[platform.macos]
+archive-prefix = "d2-v{version}"
+download-file = "d2-v{version}-macos-{arch}.tar.gz"
+exe-path = "bin/d2"
+
+[platform.windows]
+archive-prefix = "d2-v{version}"
+download-file = "d2-v{version}-windows-{arch}.tar.gz"
+exe-path = "bin/d2.exe"
+
+[install]
+download-url = "https://github.com/terrastruct/d2/releases/download/v{version}/{download_file}"
+unpack = true
+
+[install.arch]
+aarch64 = "arm64"
+x86_64 = "amd64"
+
+[resolve]
+git-url = "https://github.com/terrastruct/d2"

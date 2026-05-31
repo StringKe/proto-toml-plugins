@@ -1,0 +1,27 @@
+# A TOML plugin for proto:
+# https://moonrepo.dev/docs/proto/plugins#toml-plugin
+#
+# mkcert - 本地 HTTPS 证书生成工具 (FiloSottile 出品, 与 age 同一作者)。
+
+name = "mkcert"
+type = "cli"
+
+[platform.linux]
+download-file = "mkcert-v{version}-linux-{arch}"
+
+[platform.macos]
+download-file = "mkcert-v{version}-darwin-{arch}"
+
+[platform.windows]
+download-file = "mkcert-v{version}-windows-{arch}.exe"
+
+[install]
+download-url = "https://github.com/FiloSottile/mkcert/releases/download/v{version}/{download_file}"
+unpack = false
+
+[install.arch]
+aarch64 = "arm64"
+x86_64 = "amd64"
+
+[resolve]
+git-url = "https://github.com/FiloSottile/mkcert"

@@ -1,0 +1,27 @@
+# A TOML plugin for proto:
+# https://moonrepo.dev/docs/proto/plugins#toml-plugin
+#
+# trivy - 容器/代码/文件系统漏洞扫描器 (Aqua Security)。
+
+name = "trivy"
+type = "cli"
+
+[platform.linux]
+download-file = "trivy_{version}_Linux-{arch}.tar.gz"
+
+[platform.macos]
+download-file = "trivy_{version}_macOS-{arch}.tar.gz"
+
+[platform.windows]
+download-file = "trivy_{version}_Windows-{arch}.tar.gz"
+
+[install]
+download-url = "https://github.com/aquasecurity/trivy/releases/download/v{version}/{download_file}"
+unpack = true
+
+[install.arch]
+aarch64 = "arm64"
+x86_64 = "amd64"
+
+[resolve]
+git-url = "https://github.com/aquasecurity/trivy"
