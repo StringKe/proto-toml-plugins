@@ -15,6 +15,9 @@ ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 KNOWN_GOOD="$ROOT/tests/known-good.json"
 PROTO_CACHE="/tmp/proto-verify-cache"
 PROTO_BIN="$PROTO_CACHE/bin/proto"
+if [[ ! -x "$PROTO_BIN" && -x "$PROTO_CACHE/bin/proto.exe" ]]; then
+  PROTO_BIN="$PROTO_CACHE/bin/proto.exe"
+fi
 TEMP_BASE="${TMPDIR:-/tmp}/proto-verify-run-$$"
 
 RED='\033[0;31m'
@@ -134,8 +137,12 @@ EOF
     return 1
   fi
 
-  if ! "$PROTO_BIN" install -c local -y "$plugin" 2>&1 | tail -5; then
-    fail "$plugin@$ver : install failed"
+  echo "  [debug] Attempting proto install for $plugin@$ver on $(uname -s) $(uname -m)" >&2
+  INSTALL_OUTPUT=$("$PROTO_BIN" install -c local -y "$plugin" 2>&1)
+  INSTALL_EXIT=$?
+  echo "$INSTALL_OUTPUT" | tail -10 >&2
+  if [[ $INSTALL_EXIT -ne 0 ]]; then
+    fail "$plugin@$ver : install failed (see output above)"
     return 1
   fi
 
