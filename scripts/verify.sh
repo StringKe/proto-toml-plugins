@@ -155,7 +155,13 @@ EOF
   local bin
   bin=$(find "$phome" -type f -path "*/tools/$plugin/*/$plugin" 2>/dev/null | head -1 || true)
   if [[ -z "$bin" ]]; then
+    bin=$(find "$phome" -type f -path "*/tools/$plugin/*/$plugin.exe" 2>/dev/null | head -1 || true)
+  fi
+  if [[ -z "$bin" ]]; then
     bin=$(find "$phome" -type f -path "*/shims/$plugin" 2>/dev/null | head -1 || true)
+  fi
+  if [[ -z "$bin" ]]; then
+    bin=$(find "$phome" -type f -path "*/shims/$plugin.exe" 2>/dev/null | head -1 || true)
   fi
   if [[ -z "$bin" ]]; then
     bin=$(find "$phome" -type f \( -name "$plugin" -o -name "${plugin}.exe" \) 2>/dev/null | head -1 || true)

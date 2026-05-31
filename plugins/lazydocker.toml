@@ -19,6 +19,10 @@ download-file = "lazydocker_{version}_Windows_{arch}.zip"
 download-url = "https://github.com/jesseduffield/lazydocker/releases/download/v{version}/{download_file}"
 unpack = true
 
+[install.exes.lazydocker]
+exe-path = "lazydocker.exe"
+primary = true
+
 [install.arch]
 aarch64 = "arm64"
 x86_64 = "x86_64"
