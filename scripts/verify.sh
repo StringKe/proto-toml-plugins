@@ -76,27 +76,35 @@ smoke_test() {
   local bin="$1"
   local name="$2"
 
-  if [[ ! -x "$bin" ]]; then
-    echo "binary not executable: $bin"
+  # On Windows, ensure we have a .exe if needed
+  if [[ "${RUNNER_OS:-}" == "Windows" && ! -f "$bin" && -f "${bin}.exe" ]]; then
+    bin="${bin}.exe"
+  fi
+
+  if [[ ! -f "$bin" ]]; then
+    echo "binary not found: $bin"
     return 1
   fi
 
-  # Try common version flags
+  # Try common version flags (some tools print to stderr)
   local out
   if out=$("$bin" --version 2>&1 | head -1); then
-    echo "$out"
-    return 0
+    [[ -n "$out" ]] && { echo "$out"; return 0; }
   fi
   if out=$("$bin" version 2>&1 | head -1); then
-    echo "$out"
-    return 0
+    [[ -n "$out" ]] && { echo "$out"; return 0; }
   fi
   if out=$("$bin" --help 2>&1 | head -3); then
-    echo "$out"
+    [[ -n "$out" ]] && { echo "$out"; return 0; }
+  fi
+
+  # Last resort: just check that the binary runs without crashing immediately
+  if "$bin" --help > /dev/null 2>&1 || "$bin" -h > /dev/null 2>&1; then
+    echo "runs (help succeeded)"
     return 0
   fi
 
-  echo "no standard version/help output"
+  echo "no standard version/help output and basic execution test failed"
   return 1
 }
 
