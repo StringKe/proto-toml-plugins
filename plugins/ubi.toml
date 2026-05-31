@@ -10,10 +10,10 @@ type = "cli"
 download-file = "ubi-Linux-musl-{arch}.tar.gz"
 
 [platform.macos]
-download-file = "ubi-darwin-{arch}.tar.gz"
+download-file = "ubi-macOS-{arch}.tar.gz"
 
 [platform.windows]
-download-file = "ubi-windows-{arch}.zip"
+download-file = "ubi-Windows-msvc-{arch}.zip"
 
 [install]
 download-url = "https://github.com/houseabsolute/ubi/releases/download/v{version}/{download_file}"
