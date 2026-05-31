@@ -13,7 +13,7 @@ download-file = "popeye_Linux_{arch}.tar.gz"
 download-file = "popeye_Darwin_{arch}.tar.gz"
 
 [platform.windows]
-download-file = "popeye_Windows_{arch}.tar.gz"
+download-file = "popeye_windows_{arch}.tar.gz"
 
 [install]
 download-url = "https://github.com/derailed/popeye/releases/download/v{version}/{download_file}"
