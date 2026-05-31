@@ -143,6 +143,10 @@ EOF
   echo "$INSTALL_OUTPUT" >&2
   if [[ $INSTALL_EXIT -ne 0 ]]; then
     echo "::error::Plugin $plugin@$ver failed to install on $(uname -s). Full output above. This is the smoking gun for the Windows failure." >&2
+    # Also print to stdout so it appears directly in the GitHub step summary
+    echo "CRITICAL FAILURE on $(uname -s): $plugin@$ver install failed."
+    echo "Last 30 lines of proto output:"
+    echo "$INSTALL_OUTPUT" | tail -30
     fail "$plugin@$ver : install failed"
     return 1
   fi
