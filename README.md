@@ -163,22 +163,6 @@ Then:
 proto install
 ```
 
-## Special notes
-
-- **AWS CLI / Azure CLI / gcloud**: These use complex installers (python bundles, .pkg, post-install scripts). Recommended to use `brew install awscli` / `brew install --cask gcloud-cli` / official installers instead of proto plugins. A placeholder may be added later if a clean static binary path appears.
-- **pre-commit**: Python package, no static binary release. Use `pipx install pre-commit` or `brew install pre-commit`.
-- **vite-plus (vp)**: GitHub Releases 提供原生二进制（vp-aarch64-apple-darwin.tar.gz 等）。本仓库已提供 `plugins/vp.toml`。官方 curl 脚本会额外设置 ~/.vite-plus 完整环境（Node 管理等），如需完整特性仍可搭配使用。
-
-### Vite 生态工具（用户列出的组件）
-
-- **oxlint / oxfmt**（1.67.0 / 0.52.0）：Oxc 项目在 GitHub Releases (apps_vX.Y.Z tag) 提供大量高质量预构建 tar.gz + zip + checksum。本仓库已提供 `oxlint.toml` 和 `oxfmt.toml`，可直接用于 proto 管理。
-- **vite** (8.x)、**rolldown**、**vitest**、**tsdown**：目前 GitHub Releases 不提供独立可执行二进制，主要通过 npm / pnpm / corepack / vp 管理。推荐在项目内使用，或通过 `vp` 统一。
-- **oxlint-tsgolint**：通过 npm 包 `oxlint-tsgolint` 分发平台二进制（供 oxlint --type-aware 调用），无独立 GitHub release 二进制。建议随 oxlint 的 npm 依赖安装。
-
-如未来这些工具开始提供稳定的原生 release binary，我们会及时补充 plugin。
-- **moon** (moonrepo build system): Official plugin available from moonrepo/moon repo (`proto-plugin.toml`). This collection focuses on infra CLIs not covered well elsewhere.
-- **Shell enhancements** (starship, atuin, zoxide, eza, fd, yazi, direnv, fzf, lazygit): Excellent candidates for proto if you want exact team pinning; add on request.
-
 ## Verification (sound & automated)
 
 All 55+ plugins are continuously validated.
