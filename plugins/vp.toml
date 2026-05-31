@@ -1,0 +1,33 @@
+# A TOML plugin for proto:
+# https://moonrepo.dev/docs/proto/plugins#toml-plugin
+#
+# Vite+ (vp) - 统一的 Web 开发工具链 CLI（Vite + Vitest + Rolldown + Oxlint 等零配置整合）。
+#
+# 注意:
+# - 上游通过 GitHub Releases 提供原生二进制（非纯 npm 包）。
+# - 官方一键脚本 (curl https://vite.plus | bash) 会额外安装到 ~/.vite-plus 并处理 Node/包管理。
+# - 此 plugin 仅分发核心 `vp` 二进制，适合与 proto 其他工具统一版本管理。
+# - 完整特性仍推荐参考官方脚本或 `vp upgrade`。
+
+name = "Vite+"
+type = "cli"
+
+[platform.linux]
+download-file = "vp-{arch}-unknown-linux-musl.tar.gz"
+
+[platform.macos]
+download-file = "vp-{arch}-apple-darwin.tar.gz"
+
+[platform.windows]
+download-file = "vp-{arch}-pc-windows-msvc.zip"
+
+[install]
+download-url = "https://github.com/voidzero-dev/vite-plus/releases/download/v{version}/{download_file}"
+unpack = true
+
+[install.arch]
+aarch64 = "aarch64"
+x86_64 = "x86_64"
+
+[resolve]
+git-url = "https://github.com/voidzero-dev/vite-plus"

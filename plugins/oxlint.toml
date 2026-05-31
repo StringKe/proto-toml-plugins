@@ -1,0 +1,37 @@
+# A TOML plugin for proto:
+# https://moonrepo.dev/docs/proto/plugins#toml-plugin
+#
+# oxlint - 极快的 Rust linter（Oxc 项目），Vite+ / rolldown 生态推荐的 lint 工具。
+#
+# Releases 使用特殊 tag: apps_v{version} （例如 apps_v1.67.0）
+# 提供大量平台原生二进制 + sha256 checksum。
+
+name = "oxlint"
+type = "cli"
+
+[platform.linux]
+download-file = "oxlint-{arch}-unknown-linux-musl.tar.gz"
+archive-prefix = "oxlint-{arch}-unknown-linux-musl"
+exe-path = "oxlint"
+
+[platform.macos]
+download-file = "oxlint-{arch}-apple-darwin.tar.gz"
+archive-prefix = "oxlint-{arch}-apple-darwin"
+exe-path = "oxlint"
+
+[platform.windows]
+download-file = "oxlint-{arch}-pc-windows-msvc.zip"
+archive-prefix = "oxlint-{arch}-pc-windows-msvc"
+exe-path = "oxlint.exe"
+
+[install]
+download-url = "https://github.com/oxc-project/oxc/releases/download/apps_v{version}/{download_file}"
+unpack = true
+
+[install.arch]
+aarch64 = "aarch64"
+x86_64 = "x86_64"
+
+[resolve]
+git-url = "https://github.com/oxc-project/oxc"
+git-tag-pattern = "^apps_v(?<version>.*)$"

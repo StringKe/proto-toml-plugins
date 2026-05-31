@@ -1,0 +1,36 @@
+# A TOML plugin for proto:
+# https://moonrepo.dev/docs/proto/plugins#toml-plugin
+#
+# oxfmt - Oxc 项目的快速代码格式化工具（与 oxlint 配套）。
+#
+# 与 oxlint 共享同一发布流程（apps_v{version} tag + 大量预构建二进制）。
+
+name = "oxfmt"
+type = "cli"
+
+[platform.linux]
+download-file = "oxfmt-{arch}-unknown-linux-musl.tar.gz"
+archive-prefix = "oxfmt-{arch}-unknown-linux-musl"
+exe-path = "oxfmt"
+
+[platform.macos]
+download-file = "oxfmt-{arch}-apple-darwin.tar.gz"
+archive-prefix = "oxfmt-{arch}-apple-darwin"
+exe-path = "oxfmt"
+
+[platform.windows]
+download-file = "oxfmt-{arch}-pc-windows-msvc.zip"
+archive-prefix = "oxfmt-{arch}-pc-windows-msvc"
+exe-path = "oxfmt.exe"
+
+[install]
+download-url = "https://github.com/oxc-project/oxc/releases/download/apps_v{version}/{download_file}"
+unpack = true
+
+[install.arch]
+aarch64 = "aarch64"
+x86_64 = "x86_64"
+
+[resolve]
+git-url = "https://github.com/oxc-project/oxc"
+git-tag-pattern = "^apps_v(?<version>.*)$"

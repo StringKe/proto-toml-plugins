@@ -1,6 +1,6 @@
 # proto-toml-plugins
 
-[Proto](https://moonrepo.dev/proto) TOML plugins for common infra CLI tooling. Use a single `.prototools` to manage versions of 55+ tools including Kubernetes ecosystem, HashiCorp stack, security scanners, GitOps, cloud CLIs and DevEx utilities (tofu, terraform, terragrunt, flux, kind, k3d, kubectl, helm, kustomize, argocd, velero, k9s, kubectx, kubens, cosign, sops, age, trivy, gitleaks, vault, consul, packer, gh, yq, jq, crane, d2, mkcert, golangci-lint, air, sqlc, stern, tflint, terraform-docs, buf, atlas, direnv, lazygit, cloudflared, caddy, eksctl, aliyun, helmfile, operator-sdk, tkn, istioctl, oras, syft, grype, starship, zoxide, eza, fd, and more).
+[Proto](https://moonrepo.dev/proto) TOML plugins for common infra CLI tooling. Use a single `.prototools` to manage versions of 58+ tools including Kubernetes ecosystem, HashiCorp stack, security scanners, GitOps, cloud CLIs and DevEx utilities (tofu, terraform, terragrunt, flux, kind, k3d, kubectl, helm, kustomize, argocd, velero, k9s, kubectx, kubens, cosign, sops, age, trivy, gitleaks, vault, consul, packer, gh, yq, jq, crane, d2, mkcert, golangci-lint, air, sqlc, stern, tflint, terraform-docs, buf, atlas, direnv, lazygit, cloudflared, caddy, eksctl, aliyun, helmfile, operator-sdk, tkn, istioctl, oras, syft, grype, starship, zoxide, eza, fd, vp (Vite+), oxlint, oxfmt, and more).
 
 ## Plugins
 
@@ -41,6 +41,9 @@
 | `trivy` | https://github.com/aquasecurity/trivy | Vulnerability scanner (containers / code / fs) |
 | `vault` | https://github.com/hashicorp/vault | HashiCorp Vault CLI |
 | `velero` | https://github.com/vmware-tanzu/velero | Kubernetes backup and disaster recovery |
+| `vp` | https://github.com/voidzero-dev/vite-plus | Vite+ (vp) — unified zero-config web toolchain (Vite + Rolldown + Oxlint + Vitest etc.) |
+| `oxlint` | https://github.com/oxc-project/oxc | Oxc oxlint (Rust linter, Vite+ recommended) |
+| `oxfmt` | https://github.com/oxc-project/oxc | Oxc oxfmt (Rust formatter) |
 | `yq` | https://github.com/mikefarah/yq | YAML/JSON/XML/CSV processor (jq for YAML) |
 
 ## Usage
@@ -66,6 +69,9 @@ sops = "3.12.2"
 age = "1.2.1"
 trivy = "0.70.0"
 vault = "1.21.2"
+vp = "0.1.23"
+oxlint = "1.67.0"
+oxfmt = "0.52.0"
 consul = "1.21.0"
 packer = "1.13.1"
 gh = "2.81.0"
@@ -118,6 +124,9 @@ tofu           = "https://raw.githubusercontent.com/StringKe/proto-toml-plugins/
 trivy          = "https://raw.githubusercontent.com/StringKe/proto-toml-plugins/main/plugins/trivy.toml"
 vault          = "https://raw.githubusercontent.com/StringKe/proto-toml-plugins/main/plugins/vault.toml"
 velero         = "https://raw.githubusercontent.com/StringKe/proto-toml-plugins/main/plugins/velero.toml"
+vp             = "https://raw.githubusercontent.com/StringKe/proto-toml-plugins/main/plugins/vp.toml"
+oxlint         = "https://raw.githubusercontent.com/StringKe/proto-toml-plugins/main/plugins/oxlint.toml"
+oxfmt          = "https://raw.githubusercontent.com/StringKe/proto-toml-plugins/main/plugins/oxfmt.toml"
 yq             = "https://raw.githubusercontent.com/StringKe/proto-toml-plugins/main/plugins/yq.toml"
 ```
 
@@ -131,7 +140,15 @@ proto install
 
 - **AWS CLI / Azure CLI / gcloud**: These use complex installers (python bundles, .pkg, post-install scripts). Recommended to use `brew install awscli` / `brew install --cask gcloud-cli` / official installers instead of proto plugins. A placeholder may be added later if a clean static binary path appears.
 - **pre-commit**: Python package, no static binary release. Use `pipx install pre-commit` or `brew install pre-commit`.
-- **vite-plus (vp)**: Currently npm-driven alpha tooling, not suitable for proto TOML. Install via their curl one-liner during alpha phase.
+- **vite-plus (vp)**: GitHub Releases 提供原生二进制（vp-aarch64-apple-darwin.tar.gz 等）。本仓库已提供 `plugins/vp.toml`。官方 curl 脚本会额外设置 ~/.vite-plus 完整环境（Node 管理等），如需完整特性仍可搭配使用。
+
+### Vite 生态工具（用户列出的组件）
+
+- **oxlint / oxfmt**（1.67.0 / 0.52.0）：Oxc 项目在 GitHub Releases (apps_vX.Y.Z tag) 提供大量高质量预构建 tar.gz + zip + checksum。本仓库已提供 `oxlint.toml` 和 `oxfmt.toml`，可直接用于 proto 管理。
+- **vite** (8.x)、**rolldown**、**vitest**、**tsdown**：目前 GitHub Releases 不提供独立可执行二进制，主要通过 npm / pnpm / corepack / vp 管理。推荐在项目内使用，或通过 `vp` 统一。
+- **oxlint-tsgolint**：通过 npm 包 `oxlint-tsgolint` 分发平台二进制（供 oxlint --type-aware 调用），无独立 GitHub release 二进制。建议随 oxlint 的 npm 依赖安装。
+
+如未来这些工具开始提供稳定的原生 release binary，我们会及时补充 plugin。
 - **moon** (moonrepo build system): Official plugin available from moonrepo/moon repo (`proto-plugin.toml`). This collection focuses on infra CLIs not covered well elsewhere.
 - **Shell enhancements** (starship, atuin, zoxide, eza, fd, yazi, direnv, fzf, lazygit): Excellent candidates for proto if you want exact team pinning; add on request.
 
