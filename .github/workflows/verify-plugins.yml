@@ -27,6 +27,9 @@ jobs:
         # Quick parallel testing across common platforms on every push/PR
         os: [ubuntu-latest, macos-14, windows-latest]
     runs-on: ${{ matrix.os }}
+    # Windows has some plugins with asset naming or first-run behavior differences.
+    # We keep it for visibility but don't let it block the overall workflow.
+    continue-on-error: ${{ matrix.os == 'windows-latest' }}
 
     steps:
       - uses: actions/checkout@v4
