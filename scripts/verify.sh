@@ -140,9 +140,10 @@ EOF
   echo "  [debug] Attempting proto install for $plugin@$ver on $(uname -s) $(uname -m)" >&2
   INSTALL_OUTPUT=$("$PROTO_BIN" install -c local -y "$plugin" 2>&1)
   INSTALL_EXIT=$?
-  echo "$INSTALL_OUTPUT" | tail -10 >&2
+  echo "$INSTALL_OUTPUT" >&2
   if [[ $INSTALL_EXIT -ne 0 ]]; then
-    fail "$plugin@$ver : install failed (see output above)"
+    echo "::error::Plugin $plugin@$ver failed to install on $(uname -s). Full output above. This is the smoking gun for the Windows failure." >&2
+    fail "$plugin@$ver : install failed"
     return 1
   fi
 
