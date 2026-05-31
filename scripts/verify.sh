@@ -215,34 +215,15 @@ main() {
       failures=1
     fi
   else
-    # On Windows in CI, temporarily only test the recently added plugins for faster diagnosis
-    if [[ "${CI:-}" == "true" && "${RUNNER_OS:-}" == "Windows" ]]; then
-      echo "[debug] Windows CI detected - testing only the new batch plugins for faster iteration" >&2
-      PLUGINS_TO_TEST=(ubi eget regctl lazydocker kail popeye)
-      for p in "${PLUGINS_TO_TEST[@]}"; do
-        total=$((total + 1))
-        # Print exactly what Windows filename this plugin TOML is requesting
-        WIN_FILE=$(grep -A 5 'platform.windows' "$ROOT/plugins/$p.toml" | grep 'download-file' | head -1 | sed 's/.*= *"\(.*\)"/\1/')
-        echo "[debug] $p on Windows will request filename: $WIN_FILE (after arch substitution)" >&2
-        if verify_one "$p" "$use_latest"; then
-          echo "[debug] $p PASSED on Windows" >&2
-        else
-          echo "[debug] $p FAILED on Windows" >&2
-          failures=$((failures + 1))
-        fi
-      done
-      echo "[debug] Windows batch summary: $failures failures out of ${#PLUGINS_TO_TEST[@]} tested" >&2
-    else
-      # Test all plugins that have a .toml
-      while IFS= read -r toml; do
-        local p
-        p=$(basename "$toml" .toml)
-        total=$((total + 1))
-        if ! verify_one "$p" "$use_latest"; then
-          failures=$((failures + 1))
-        fi
-      done < <(find "$ROOT/plugins" -name '*.toml' | sort)
-    fi
+    # Test all plugins that have a .toml
+    while IFS= read -r toml; do
+      local p
+      p=$(basename "$toml" .toml)
+      total=$((total + 1))
+      if ! verify_one "$p" "$use_latest"; then
+        failures=$((failures + 1))
+      fi
+    done < <(find "$ROOT/plugins" -name '*.toml' | sort)
   fi
 
   log ""

@@ -186,14 +186,15 @@ All 55+ plugins are continuously validated.
 ### Local (one command)
 
 ```sh
-# Test everything against known-good versions (fast, stable)
+# Unix / macOS / Linux
 ./scripts/verify.sh
 
-# Test a single plugin
-./scripts/verify.sh flux
+# Windows (PowerShell)
+./scripts/verify.ps1
 
-# Test everything against latest upstream releases (what daily CI does)
-./scripts/verify.sh --latest
+# Single plugin or latest
+./scripts/verify.sh flux
+./scripts/verify.ps1 --latest
 ```
 
 The script:
