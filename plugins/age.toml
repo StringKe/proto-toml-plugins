@@ -1,0 +1,30 @@
+# age encryption tool proto TOML plugin
+# https://moonrepo.dev/docs/proto/plugins#toml-plugin
+#
+# age release tarball 含 age + age-keygen 两个 binary, 在 archive 内 age/ 子目录。
+
+name = "age"
+type = "cli"
+
+[platform.linux]
+archive-prefix = "age"
+download-file = "age-v{version}-linux-{arch}.tar.gz"
+
+[platform.macos]
+archive-prefix = "age"
+download-file = "age-v{version}-darwin-{arch}.tar.gz"
+
+[platform.windows]
+archive-prefix = "age"
+download-file = "age-v{version}-windows-{arch}.zip"
+
+[install]
+download-url = "https://github.com/FiloSottile/age/releases/download/v{version}/{download_file}"
+unpack = true
+
+[install.arch]
+aarch64 = "arm64"
+x86_64 = "amd64"
+
+[resolve]
+git-url = "https://github.com/FiloSottile/age"

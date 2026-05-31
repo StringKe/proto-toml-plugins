@@ -1,0 +1,28 @@
+# Argo CD CLI proto TOML plugin
+# https://moonrepo.dev/docs/proto/plugins#toml-plugin
+#
+# argocd 是单 binary, 不打包到 archive, install.unpack = false 直接落 binary。
+
+name = "argocd"
+type = "cli"
+
+[platform.linux]
+download-file = "argocd-linux-{arch}"
+
+[platform.macos]
+download-file = "argocd-darwin-{arch}"
+
+[platform.windows]
+download-file = "argocd-windows-{arch}.exe"
+
+[install]
+download-url = "https://github.com/argoproj/argo-cd/releases/download/v{version}/{download_file}"
+checksum-url = "https://github.com/argoproj/argo-cd/releases/download/v{version}/cli_checksums.txt"
+unpack = false
+
+[install.arch]
+aarch64 = "arm64"
+x86_64 = "amd64"
+
+[resolve]
+git-url = "https://github.com/argoproj/argo-cd"
