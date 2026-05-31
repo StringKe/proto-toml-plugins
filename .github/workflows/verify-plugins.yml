@@ -32,11 +32,15 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Install jq (for known-good.json)
+        shell: bash
         run: |
           if [[ "${{ runner.os }}" == "Linux" ]]; then
             sudo apt-get update -y && sudo apt-get install -y jq
-          else
+          elif [[ "${{ runner.os }}" == "macOS" ]]; then
             brew install jq
+          else
+            # Windows: use Chocolatey (available on GitHub windows runners)
+            choco install jq -y --no-progress
           fi
 
       - name: Run verification
