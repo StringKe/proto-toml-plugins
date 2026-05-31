@@ -1,0 +1,33 @@
+# A TOML plugin for proto:
+# https://moonrepo.dev/docs/proto/plugins#toml-plugin
+#
+# eget - 简单易用的 GitHub Release 二进制下载工具（meta 工具）。
+
+name = "eget"
+type = "cli"
+
+[platform.linux]
+download-file = "eget-{version}-linux_{arch}.tar.gz"
+archive-prefix = "eget-{version}-linux_{arch}"
+exe-path = "eget"
+
+[platform.macos]
+download-file = "eget-{version}-darwin_{arch}.tar.gz"
+archive-prefix = "eget-{version}-darwin_{arch}"
+exe-path = "eget"
+
+[platform.windows]
+download-file = "eget-{version}-windows_{arch}.zip"
+archive-prefix = "eget-{version}-windows_{arch}"
+exe-path = "eget.exe"
+
+[install]
+download-url = "https://github.com/zyedidia/eget/releases/download/v{version}/{download_file}"
+unpack = true
+
+[install.arch]
+aarch64 = "arm64"
+x86_64 = "amd64"
+
+[resolve]
+git-url = "https://github.com/zyedidia/eget"

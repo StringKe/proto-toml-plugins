@@ -1,6 +1,6 @@
 # proto-toml-plugins
 
-[Proto](https://moonrepo.dev/proto) TOML plugins for common infra CLI tooling. Use a single `.prototools` to manage versions of 62+ tools including Kubernetes ecosystem, HashiCorp stack, security scanners, GitOps, cloud CLIs and DevEx utilities (tofu, terraform, terragrunt, flux, kind, k3d, kubectl, helm, kustomize, argocd, velero, k9s, kubectx, kubens, cosign, sops, age, trivy, gitleaks, vault, consul, packer, gh, yq, jq, crane, d2, mkcert, golangci-lint, air, sqlc, stern, tflint, terraform-docs, buf, atlas, direnv, lazygit, cloudflared, caddy, eksctl, aliyun, helmfile, operator-sdk, tkn, istioctl, oras, syft, grype, starship, zoxide, eza, fd, vp (Vite+), oxlint, oxfmt, just, dra, dive, process-compose, and more).
+[Proto](https://moonrepo.dev/proto) TOML plugins for common infra CLI tooling. Use a single `.prototools` to manage versions of 68+ tools including Kubernetes ecosystem, HashiCorp stack, security scanners, GitOps, cloud CLIs and DevEx utilities (tofu, terraform, terragrunt, flux, kind, k3d, kubectl, helm, kustomize, argocd, velero, k9s, kubectx, kubens, cosign, sops, age, trivy, gitleaks, vault, consul, packer, gh, yq, jq, crane, d2, mkcert, golangci-lint, air, sqlc, stern, tflint, terraform-docs, buf, atlas, direnv, lazygit, cloudflared, caddy, eksctl, aliyun, helmfile, operator-sdk, tkn, istioctl, oras, syft, grype, starship, zoxide, eza, fd, vp (Vite+), oxlint, oxfmt, just, dra, dive, process-compose, ubi, eget, regctl, lazydocker, kail, popeye, and more).
 
 ## Plugins
 
@@ -34,6 +34,12 @@
 | `mkcert` | https://github.com/FiloSottile/mkcert | Local HTTPS dev certificates (same author as age) |
 | `packer` | https://github.com/hashicorp/packer | HashiCorp image builder |
 | `process-compose` | https://github.com/F1bonacc1/process-compose | Process orchestrator (like docker-compose for local processes) |
+| `regctl` | https://github.com/regclient/regclient | OCI registry client (part of regclient) |
+| `ubi` | https://github.com/houseabsolute/ubi | Universal Binary Installer from GitHub releases (meta tool) |
+| `eget` | https://github.com/zyedidia/eget | GitHub release binary downloader (meta tool) |
+| `lazydocker` | https://github.com/jesseduffield/lazydocker | Terminal Docker manager TUI |
+| `kail` | https://github.com/boz/kail | Kubernetes log tailer (multi-pod) |
+| `popeye` | https://github.com/derailed/popeye | Kubernetes cluster sanitizer |
 | `sops` | https://github.com/getsops/sops | SOPS encrypted secret editor |
 | `sqlc` | https://github.com/sqlc-dev/sqlc | SQL to type-safe code generator |
 | `stern` | https://github.com/stern/stern | Kubernetes multi-pod log tail |
@@ -79,6 +85,12 @@ oxfmt = "0.52.0"
 consul = "1.21.0"
 packer = "1.13.1"
 process-compose = "1.110.0"
+ubi = "0.9.0"
+eget = "1.3.4"
+regctl = "0.11.5"
+lazydocker = "0.25.2"
+kail = "0.17.4"
+popeye = "0.22.1"
 gh = "2.81.0"
 yq = "4.47.2"
 jq = "1.8.1"
@@ -122,6 +134,12 @@ kustomize      = "https://raw.githubusercontent.com/StringKe/proto-toml-plugins/
 mkcert         = "https://raw.githubusercontent.com/StringKe/proto-toml-plugins/main/plugins/mkcert.toml"
 packer         = "https://raw.githubusercontent.com/StringKe/proto-toml-plugins/main/plugins/packer.toml"
 process-compose = "https://raw.githubusercontent.com/StringKe/proto-toml-plugins/main/plugins/process-compose.toml"
+regctl         = "https://raw.githubusercontent.com/StringKe/proto-toml-plugins/main/plugins/regctl.toml"
+ubi            = "https://raw.githubusercontent.com/StringKe/proto-toml-plugins/main/plugins/ubi.toml"
+eget           = "https://raw.githubusercontent.com/StringKe/proto-toml-plugins/main/plugins/eget.toml"
+lazydocker     = "https://raw.githubusercontent.com/StringKe/proto-toml-plugins/main/plugins/lazydocker.toml"
+kail           = "https://raw.githubusercontent.com/StringKe/proto-toml-plugins/main/plugins/kail.toml"
+popeye         = "https://raw.githubusercontent.com/StringKe/proto-toml-plugins/main/plugins/popeye.toml"
 sops           = "https://raw.githubusercontent.com/StringKe/proto-toml-plugins/main/plugins/sops.toml"
 sqlc           = "https://raw.githubusercontent.com/StringKe/proto-toml-plugins/main/plugins/sqlc.toml"
 stern          = "https://raw.githubusercontent.com/StringKe/proto-toml-plugins/main/plugins/stern.toml"

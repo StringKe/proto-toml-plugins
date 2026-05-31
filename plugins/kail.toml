@@ -1,0 +1,27 @@
+# A TOML plugin for proto:
+# https://moonrepo.dev/docs/proto/plugins#toml-plugin
+#
+# kail - Kubernetes 日志 tail 工具（多 pod 聚合）。
+
+name = "kail"
+type = "cli"
+
+[platform.linux]
+download-file = "kail_v{version}_linux_{arch}.tar.gz"
+
+[platform.macos]
+download-file = "kail_v{version}_darwin_{arch}.tar.gz"
+
+[platform.windows]
+download-file = "kail_v{version}_windows_{arch}.tar.gz"
+
+[install]
+download-url = "https://github.com/boz/kail/releases/download/v{version}/{download_file}"
+unpack = true
+
+[install.arch]
+aarch64 = "arm64"
+x86_64 = "amd64"
+
+[resolve]
+git-url = "https://github.com/boz/kail"

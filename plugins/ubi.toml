@@ -1,0 +1,27 @@
+# A TOML plugin for proto:
+# https://moonrepo.dev/docs/proto/plugins#toml-plugin
+#
+# ubi - Universal Binary Installer，从 GitHub Releases 下载并安装预编译二进制（meta 工具，强烈推荐）。
+
+name = "ubi"
+type = "cli"
+
+[platform.linux]
+download-file = "ubi-Linux-musl-{arch}.tar.gz"
+
+[platform.macos]
+download-file = "ubi-darwin-{arch}.tar.gz"
+
+[platform.windows]
+download-file = "ubi-windows-{arch}.zip"
+
+[install]
+download-url = "https://github.com/houseabsolute/ubi/releases/download/v{version}/{download_file}"
+unpack = true
+
+[install.arch]
+aarch64 = "arm64"
+x86_64 = "x86_64"
+
+[resolve]
+git-url = "https://github.com/houseabsolute/ubi"

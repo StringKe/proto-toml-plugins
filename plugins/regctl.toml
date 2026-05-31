@@ -1,0 +1,27 @@
+# A TOML plugin for proto:
+# https://moonrepo.dev/docs/proto/plugins#toml-plugin
+#
+# regctl - regclient 项目的 OCI registry 客户端工具（非常实用的镜像管理 CLI）。
+
+name = "regctl"
+type = "cli"
+
+[platform.linux]
+download-file = "regctl-linux-{arch}"
+
+[platform.macos]
+download-file = "regctl-darwin-{arch}"
+
+[platform.windows]
+download-file = "regctl-windows-{arch}.exe"
+
+[install]
+download-url = "https://github.com/regclient/regclient/releases/download/v{version}/{download_file}"
+unpack = false
+
+[install.arch]
+aarch64 = "arm64"
+x86_64 = "amd64"
+
+[resolve]
+git-url = "https://github.com/regclient/regclient"

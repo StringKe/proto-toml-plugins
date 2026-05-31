@@ -1,0 +1,27 @@
+# A TOML plugin for proto:
+# https://moonrepo.dev/docs/proto/plugins#toml-plugin
+#
+# lazydocker - 终端 Docker 管理 TUI 工具（jesseduffield 出品，与 lazygit 同作者）。
+
+name = "lazydocker"
+type = "cli"
+
+[platform.linux]
+download-file = "lazydocker_{version}_Linux_{arch}.tar.gz"
+
+[platform.macos]
+download-file = "lazydocker_{version}_Darwin_{arch}.tar.gz"
+
+[platform.windows]
+download-file = "lazydocker_{version}_Windows_{arch}.zip"
+
+[install]
+download-url = "https://github.com/jesseduffield/lazydocker/releases/download/v{version}/{download_file}"
+unpack = true
+
+[install.arch]
+aarch64 = "arm64"
+x86_64 = "x86_64"
+
+[resolve]
+git-url = "https://github.com/jesseduffield/lazydocker"

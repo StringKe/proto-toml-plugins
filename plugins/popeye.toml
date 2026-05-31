@@ -1,0 +1,27 @@
+# A TOML plugin for proto:
+# https://moonrepo.dev/docs/proto/plugins#toml-plugin
+#
+# popeye - Kubernetes 集群扫描与健康检查工具。
+
+name = "popeye"
+type = "cli"
+
+[platform.linux]
+download-file = "popeye_Linux_{arch}.tar.gz"
+
+[platform.macos]
+download-file = "popeye_Darwin_{arch}.tar.gz"
+
+[platform.windows]
+download-file = "popeye_Windows_{arch}.tar.gz"
+
+[install]
+download-url = "https://github.com/derailed/popeye/releases/download/v{version}/{download_file}"
+unpack = true
+
+[install.arch]
+aarch64 = "arm64"
+x86_64 = "amd64"
+
+[resolve]
+git-url = "https://github.com/derailed/popeye"
