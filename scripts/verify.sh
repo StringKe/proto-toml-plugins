@@ -15,7 +15,7 @@ ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 KNOWN_GOOD="$ROOT/tests/known-good.json"
 PROTO_CACHE="/tmp/proto-verify-cache"
 PROTO_BIN="$PROTO_CACHE/bin/proto"
-TEMP_BASE="/tmp/proto-verify-run-$$"
+TEMP_BASE="${TMPDIR:-/tmp}/proto-verify-run-$$"
 
 RED='\033[0;31m'
 GREEN='\033[0;32m'
