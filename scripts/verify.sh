@@ -204,15 +204,16 @@ main() {
     # On Windows in CI, temporarily only test the recently added plugins for faster diagnosis
     if [[ "${CI:-}" == "true" && "${RUNNER_OS:-}" == "Windows" ]]; then
       echo "[debug] Windows CI detected - testing only the new batch plugins for faster iteration" >&2
-      set -x
       PLUGINS_TO_TEST=(ubi eget regctl lazydocker kail popeye)
       for p in "${PLUGINS_TO_TEST[@]}"; do
         total=$((total + 1))
+        # Print exactly what Windows filename this plugin TOML is requesting
+        WIN_FILE=$(grep -A 5 'platform.windows' "$ROOT/plugins/$p.toml" | grep 'download-file' | head -1 | sed 's/.*= *"\(.*\)"/\1/')
+        echo "[debug] $p on Windows will request filename: $WIN_FILE (after arch substitution)" >&2
         if ! verify_one "$p" "$use_latest"; then
           failures=$((failures + 1))
         fi
       done
-      set +x
     else
       # Test all plugins that have a .toml
       while IFS= read -r toml; do
