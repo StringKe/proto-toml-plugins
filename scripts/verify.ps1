@@ -33,7 +33,10 @@ function Install-Proto {
     Write-Log "Installing proto into $ProtoCache ..."
     $installer = Join-Path $env:TEMP "proto-install.ps1"
     Invoke-WebRequest -Uri "https://moonrepo.dev/install/proto.ps1" -OutFile $installer
-    & $installer --yes --dir $ProtoCache | Out-Null
+    # proto.ps1 reads PROTO_HOME for the install location; it does NOT accept --dir.
+    # Any unrecognised positional arg is treated as the version string -> 404.
+    $env:PROTO_HOME = $ProtoCache
+    & $installer --yes | Out-Null
 
     if (-not (Test-Path $ProtoBin)) {
         throw "Failed to install proto"
@@ -67,11 +70,17 @@ function Verify-One($plugin, $useLatest) {
     New-Item -ItemType Directory -Path $runDir | Out-Null
     Set-Location $runDir
 
+    # proto on Windows rejects file:///D:/... URIs (plugin::loader::file::missing).
+    # Copy the plugin TOML beside .prototools and reference it with a plain
+    # relative file:// URL.
+    Copy-Item $toml (Join-Path $runDir "$plugin.toml")
+    $tomlUri = "file://./$plugin.toml"
+
     $config = @"
 $plugin = "$ver"
 
 [plugins]
-$plugin = "file://$toml"
+$plugin = "$tomlUri"
 "@
     $config | Out-File ".prototools" -Encoding utf8
 
@@ -79,7 +88,7 @@ $plugin = "file://$toml"
     New-Item -ItemType Directory -Path $phome | Out-Null
     $env:PROTO_HOME = $phome
 
-    & $ProtoBin plugin add $plugin "file://$toml" -c local --yes | Out-Null
+    & $ProtoBin plugin add $plugin $tomlUri -c local --yes | Out-Null
     if ($LASTEXITCODE -ne 0) {
         Write-Fail "$plugin@$ver : plugin add failed"
         return $false
@@ -92,30 +101,53 @@ $plugin = "file://$toml"
         return $false
     }
 
-    # Find the binary
-    $bin = Get-ChildItem -Path $phome -Recurse -Filter "$plugin.exe" | Select-Object -First 1 -ExpandProperty FullName
-    if (-not $bin) {
-        $bin = Get-ChildItem -Path $phome -Recurse -Filter "$plugin" | Select-Object -First 1 -ExpandProperty FullName
+    # Collect candidates: prefer the real binary under tools\<plugin>\<ver>\,
+    # fall back to the shim. Some plugins ship a binary whose name differs
+    # from the plugin id (aliyun-cli -> aliyun, tektoncd-cli -> tkn, etc.).
+    $candidates = @()
+    $toolsDir = Join-Path $phome "tools\$plugin"
+    if (Test-Path $toolsDir) {
+        Get-ChildItem $toolsDir -Recurse -File | ForEach-Object {
+            $name = $_.Name
+            # Skip non-binary artifacts and macOS metadata (`._foo`).
+            if ($name -like '._*') { return }
+            if ($name -match '^(checksums|CHECKSUM|LICENSE|README|\.last-used)' -or
+                $name -match '\.(md|txt|json|toml|sha256|sig|asc)$') { return }
+            # Only files that look executable on Windows.
+            if ($name -notmatch '\.(exe|cmd|bat|com|ps1)$') { return }
+            $candidates += $_.FullName
+        }
     }
-    if (-not $bin) {
+    $shim    = Join-Path $phome "shims\$plugin.exe"
+    if (Test-Path $shim) { $candidates += $shim }
+    $shim2   = Join-Path $phome "shims\$plugin"
+    if (Test-Path $shim2) { $candidates += $shim2 }
+
+    if ($candidates.Count -eq 0) {
         Write-Fail "$plugin@$ver : binary not found after install"
         return $false
     }
 
-    # Smoke test
-    $out = & $bin --version 2>&1 | Select-Object -First 1
-    if ($out) {
-        Write-Pass "$plugin@$ver : $out  ($bin)"
-        return $true
+    # Try each candidate. PASS requires exit code 0 from one of
+    # --version / version / --help (`unknown flag` etc. should NOT pass).
+    foreach ($bin in $candidates) {
+        foreach ($flagSet in @(@('--version'), @('version'), @('--help'))) {
+            $out = $null
+            try {
+                $global:LASTEXITCODE = 0
+                $out = & $bin @flagSet 2>&1 | Select-Object -First 1
+            } catch {
+                continue
+            }
+            if ($LASTEXITCODE -eq 0) {
+                $label = if ($out) { "$out" } else { "runs" }
+                Write-Pass "$plugin@$ver : $label  ($bin)"
+                return $true
+            }
+        }
     }
 
-    $out = & $bin --help 2>&1 | Select-Object -First 1
-    if ($out) {
-        Write-Pass "$plugin@$ver : runs (help)  ($bin)"
-        return $true
-    }
-
-    Write-Fail "$plugin@$ver : smoke test failed"
+    Write-Fail "$plugin@$ver : smoke test failed (no candidate ran successfully)"
     return $false
 }
 

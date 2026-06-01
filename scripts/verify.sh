@@ -159,35 +159,46 @@ EOF
     return 1
   fi
 
-  # Find the installed binary (tools or shims)
-  local bin
-  bin=$(find "$phome" -type f -path "*/tools/$plugin/*/$plugin" 2>/dev/null | head -1 || true)
-  if [[ -z "$bin" ]]; then
-    bin=$(find "$phome" -type f -path "*/tools/$plugin/*/$plugin.exe" 2>/dev/null | head -1 || true)
-  fi
-  if [[ -z "$bin" ]]; then
-    bin=$(find "$phome" -type f -path "*/shims/$plugin" 2>/dev/null | head -1 || true)
-  fi
-  if [[ -z "$bin" ]]; then
-    bin=$(find "$phome" -type f -path "*/shims/$plugin.exe" 2>/dev/null | head -1 || true)
-  fi
-  if [[ -z "$bin" ]]; then
-    bin=$(find "$phome" -type f \( -name "$plugin" -o -name "${plugin}.exe" \) 2>/dev/null | head -1 || true)
-  fi
+  # Collect candidate binaries in priority order. We try each candidate's
+  # smoke_test in turn so that a broken shim doesn't mask a working real
+  # binary that lives under a different name (e.g. aliyun-cli ships `aliyun`,
+  # tektoncd-cli ships `tkn`, oxlint ships `oxlint-<triple>`).
+  local candidates=()
+  candidates+=("$(find "$phome" -type f -path "*/tools/$plugin/*/$plugin" 2>/dev/null | head -1 || true)")
+  candidates+=("$(find "$phome" -type f -path "*/tools/$plugin/*/$plugin.exe" 2>/dev/null | head -1 || true)")
 
-  if [[ -z "$bin" ]]; then
+  # Every executable file under tools/$plugin/* that isn't a known non-binary
+  # artifact. Catches plugins whose binary name differs from the plugin id.
+  while IFS= read -r f; do
+    [[ -z "$f" ]] && continue
+    case "$(basename "$f")" in
+      checksums*|CHECKSUM*|LICENSE*|README*|*.md|*.txt|*.json|*.toml|*.sha256|*.sig|*.asc|.last-used) continue ;;
+    esac
+    [[ -x "$f" ]] && candidates+=("$f")
+  done < <(find "$phome" -type f -path "*/tools/$plugin/*" 2>/dev/null)
+
+  # Shims as a last resort — proto-shim depends on env that may not be set up.
+  candidates+=("$(find "$phome" -type f -path "*/shims/$plugin" 2>/dev/null | head -1 || true)")
+  candidates+=("$(find "$phome" -type f -path "*/shims/$plugin.exe" 2>/dev/null | head -1 || true)")
+  candidates+=("$(find "$phome" -type f \( -name "$plugin" -o -name "${plugin}.exe" \) 2>/dev/null | head -1 || true)")
+
+  local first_bin="" smoke_out="" last_smoke_out=""
+  for c in "${candidates[@]}"; do
+    [[ -z "$c" || ! -f "$c" ]] && continue
+    [[ -z "$first_bin" ]] && first_bin="$c"
+    if smoke_out=$(smoke_test "$c" "$plugin" 2>&1); then
+      pass "$plugin@$ver : $smoke_out  ($c)"
+      return 0
+    fi
+    last_smoke_out="$smoke_out"
+  done
+
+  if [[ -z "$first_bin" ]]; then
     fail "$plugin@$ver : binary not found after install"
-    return 1
-  fi
-
-  local smoke_out
-  if smoke_out=$(smoke_test "$bin" "$plugin" 2>&1); then
-    pass "$plugin@$ver : $smoke_out  ($bin)"
-    return 0
   else
-    fail "$plugin@$ver : smoke test failed - $smoke_out"
-    return 1
+    fail "$plugin@$ver : smoke test failed - $last_smoke_out"
   fi
+  return 1
 }
 
 main() {
